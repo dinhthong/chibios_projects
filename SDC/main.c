@@ -70,16 +70,19 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
   static const char *mode[] = {"SDV11", "SDV20", "MMC", NULL};
   systime_t start, end;
   uint32_t n, startblk;
-
+  chprintf(chp, "I am Thong\r\n");
   if (argc != 1) {
     chprintf(chp, "Usage: sdiotest read|write|erase|all\r\n");
     return;
   }
-
+  
   /* Card presence check.*/
   if (!blkIsInserted(&SDCD1)) {
     chprintf(chp, "Card not inserted, aborting.\r\n");
     return;
+  }
+  else {
+    chprintf(chp, "Card is present\r\n");
   }
 
   /* Connection to the card.*/
