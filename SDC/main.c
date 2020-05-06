@@ -21,7 +21,7 @@
 
 #include "chprintf.h"
 #include "shell.h"
-
+//#include "ff.h"
 /*
  * Working area for driver.
  */
@@ -32,7 +32,7 @@ static uint8_t sd_scratchpad[512];
  */
 static const SDCConfig sdccfg = {
   sd_scratchpad,
-  SDC_MODE_4BIT
+  SDC_MODE_1BIT
 };
 
 /*
@@ -87,7 +87,9 @@ void cmd_sdc(BaseSequentialStream *chp, int argc, char *argv[]) {
 
   /* Connection to the card.*/
   chprintf(chp, "Connecting... ");
-  if (sdcConnect(&SDCD1)) {
+  uint8_t sdconnect_status = sdcConnect(&SDCD1);
+  chprintf(chp, "Connec status: %d ", sdconnect_status);
+  if (sdconnect_status) {
     chprintf(chp, "failed\r\n");
     return;
   }
